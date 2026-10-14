@@ -244,3 +244,12 @@ export default function camelCase(input, options) {
 
 	return leadingPrefix + postProcess(input, toUpperCase, options);
 }
+
+export function isCamelCase(string) {
+	if (typeof string !== 'string') {
+		throw new TypeError('Expected the input to be `string`');
+	}
+
+	// A string with only `_` and `$` holds no word.
+	return string.replace(LEADING_PREFIX, '').length > 0 && camelCase(string) === string;
+}
