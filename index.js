@@ -150,7 +150,7 @@ const postProcess = (input, toUpperCase, {capitalizeAfterNumber}) => {
 	);
 };
 
-export default function camelCase(input, options) {
+function convert(input, options) {
 	if (!(typeof input === 'string' || Array.isArray(input))) {
 		throw new TypeError('Expected the input to be `string | string[]`');
 	}
@@ -243,6 +243,18 @@ export default function camelCase(input, options) {
 	}
 
 	return leadingPrefix + postProcess(input, toUpperCase, options);
+}
+
+export default function camelCase(input, options) {
+	if (options?.suffix !== undefined && typeof options.suffix !== 'string') {
+		throw new TypeError('Expected the `suffix` option to be a string');
+	}
+
+	const result = convert(input, options);
+
+	// A result with no word, such as `''` or `__`, gets no suffix.
+	const hasWord = result.replace(LEADING_PREFIX, '').length > 0;
+	return hasWord && options?.suffix ? result + options.suffix : result;
 }
 
 export function isCamelCase(string) {
