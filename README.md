@@ -158,7 +158,7 @@ camelCase('foo bar', {separator: ''});
 Type: `number`\
 Default: `undefined`
 
-Cut the result to at most this many code points. A leading `_` or `$` prefix counts. A value that is not a non-negative integer throws a `TypeError`.
+The `maxLength` option cuts the result to at most this many code points. A leading `_` or `$` prefix counts. A value that is not a non-negative integer throws a `TypeError`.
 
 ```js
 import camelCase from 'camelcase';

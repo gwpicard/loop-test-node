@@ -248,7 +248,7 @@ function convert(input, options) {
 export default function camelCase(input, options) {
 	const maxLength = options?.maxLength;
 
-	if (maxLength !== undefined && !(Number.isInteger(maxLength) && maxLength >= 0)) {
+	if (maxLength !== undefined && !(Number.isSafeInteger(maxLength) && maxLength >= 0)) {
 		throw new TypeError('Expected the `maxLength` option to be a non-negative integer');
 	}
 
