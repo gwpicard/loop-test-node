@@ -162,6 +162,10 @@ export default function camelCase(input, options) {
 		...options,
 	};
 
+	if (options.separator !== undefined && typeof options.separator !== 'string') {
+		throw new TypeError('Expected the `separator` option to be a string');
+	}
+
 	if (Array.isArray(input)) {
 		input = input
 			.map(element => element.trim())
@@ -208,8 +212,14 @@ export default function camelCase(input, options) {
 			input,
 			toLowerCase,
 			toUpperCase,
-			options.preserveConsecutiveUppercase,
+			// The separator option ignores this option, so humps split the same way.
+			options.separator === undefined && options.preserveConsecutiveUppercase,
 		);
+	}
+
+	if (options.separator !== undefined) {
+		const words = input.split(SEPARATORS).filter(word => word.length > 0);
+		return leadingPrefix + words.map(word => toLowerCase(word)).join(options.separator);
 	}
 
 	// Strip leading separators eagerly so they do not affect word detection

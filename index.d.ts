@@ -73,6 +73,24 @@ export type Options = {
 	readonly capitalizeAfterNumber?: boolean;
 
 	/**
+	Join the words with this string, in lowercase, instead of making camel case. This option wins over `pascalCase`, `preserveConsecutiveUppercase` and `capitalizeAfterNumber`. A leading `_` or `$` prefix stays. A value that is not a string throws a `TypeError`.
+
+	@default undefined
+
+	@example
+	```
+	import camelCase from 'camelcase';
+
+	camelCase('foo bar', {separator: '_'});
+	//=> 'foo_bar'
+
+	camelCase('fooBar baz', {separator: '-'});
+	//=> 'foo-bar-baz'
+	```
+	*/
+	readonly separator?: string;
+
+	/**
 	The locale parameter indicates the locale to be used to convert to upper/lower case according to any locale-specific case mappings. If multiple locales are given in an array, the best available locale is used.
 
 	Default: The host environment’s current locale.
