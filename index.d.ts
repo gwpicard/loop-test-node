@@ -91,6 +91,21 @@ export type Options = {
 	readonly separator?: string;
 
 	/**
+	Cut the result to at most this many code points. A leading `_` or `$` prefix counts. A value that is not a non-negative integer throws a `TypeError`.
+
+	@default undefined
+
+	@example
+	```
+	import camelCase from 'camelcase';
+
+	camelCase('foo-bar-baz', {maxLength: 5});
+	//=> 'fooBa'
+	```
+	*/
+	readonly maxLength?: number;
+
+	/**
 	The locale parameter indicates the locale to be used to convert to upper/lower case according to any locale-specific case mappings. If multiple locales are given in an array, the best available locale is used.
 
 	Default: The host environment’s current locale.
