@@ -151,6 +151,9 @@ const postProcess = (input, toUpperCase, {capitalizeAfterNumber}) => {
 	);
 };
 
+// The prefix is another word at the start. An input with no word gets no prefix.
+const addPrefixWord = (input, prefix) => prefix && !ONLY_SEPARATORS.test(input) ? prefix + '-' + input : input;
+
 function convert(input, options) {
 	if (!(typeof input === 'string' || Array.isArray(input))) {
 		throw new TypeError('Expected the input to be `string | string[]`');
@@ -188,10 +191,7 @@ function convert(input, options) {
 		return leadingPrefix;
 	}
 
-	// The prefix is another word at the start. An input with no word gets no prefix.
-	if (options.prefix && !ONLY_SEPARATORS.test(input)) {
-		input = options.prefix + '-' + input;
-	}
+	input = addPrefixWord(input, options.prefix);
 
 	const toLowerCase = options.locale === false
 		? string => string.toLowerCase()
