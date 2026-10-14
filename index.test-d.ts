@@ -1,5 +1,5 @@
 import {expectTypeOf, expectError} from 'nz';
-import camelCase, {type Options} from './index.js';
+import camelCase, {isCamelCase, type Options} from './index.js';
 
 expectTypeOf(camelCase('foo-bar')).toBe<string>();
 expectTypeOf(camelCase('розовый_пушистый_единороги')).toBe<string>();
@@ -50,3 +50,7 @@ expectError(camelCase(['foo', 1]));
 expectError(camelCase('foo-bar', {pascalCase: 'yes'}));
 expectError(camelCase('foo-bar', {unknownOption: true}));
 expectError(camelCase('foo-bar', {locale: 42}));
+
+expectTypeOf(isCamelCase('fooBar')).toBe<boolean>();
+expectError(isCamelCase(1));
+expectError(isCamelCase(['fooBar']));

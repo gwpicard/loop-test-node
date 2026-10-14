@@ -172,3 +172,21 @@ export default function camelcase(
 	input: string | readonly string[],
 	options?: Options,
 ): string;
+
+/**
+Check whether a string is already in camelCase form, as `camelCase` would return it. A leading `_` or `$` prefix is allowed. A string with no word, like `''`, `'_'` or `'$'`, returns `false`.
+
+@param input - The string to check.
+
+@example
+```
+import {isCamelCase} from 'camelcase';
+
+isCamelCase('fooBar');
+//=> true
+
+isCamelCase('foo-bar');
+//=> false
+```
+*/
+export function isCamelCase(input: string): boolean;

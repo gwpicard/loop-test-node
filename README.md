@@ -190,6 +190,20 @@ camelCase('lorem-ipsum', {locale: false});
 //=> 'loremIpsum'
 ```
 
+### isCamelCase(input)
+
+Check whether a string is already in camelCase form. It returns `true` only when `camelCase(input) === input`. A leading `_` or `$` is allowed. A string with no word, like `''`, `'_'` or `'$'`, returns `false`. It throws a `TypeError` if the input is not a string. It uses the default `camelCase` behavior and takes no options.
+
+```js
+import {isCamelCase} from 'camelcase';
+
+isCamelCase('fooBar');
+//=> true
+
+isCamelCase('foo-bar');
+//=> false
+```
+
 ## Related
 
 - [decamelize](https://github.com/sindresorhus/decamelize) - The inverse of this module
