@@ -29,9 +29,10 @@ test('test_D3_max_length_counts_prefix', async () => {
 
 test('test_D4_max_length_rejects_bad_values', async () => {
 	const camelCase = await load();
-	for (const maxLength of [-1, 1.5, '5', Number.NaN]) {
-		assert.throws(() => camelCase('foo-bar', {maxLength}), TypeError);
-	}
+	assert.throws(() => camelCase('foo-bar', {maxLength: -1}), TypeError);
+	assert.throws(() => camelCase('foo-bar', {maxLength: 1.5}), TypeError);
+	assert.throws(() => camelCase('foo-bar', {maxLength: '5'}), TypeError);
+	assert.throws(() => camelCase('foo-bar', {maxLength: NaN}), TypeError);
 });
 
 test('test_D5_stays_without_max_length', async () => {
@@ -44,6 +45,6 @@ test('test_D5_stays_without_max_length', async () => {
 test('test_D6_types_and_readme_name_max_length', () => {
 	const types = fs.readFileSync(new URL('../../index.d.ts', import.meta.url), 'utf8');
 	const readme = fs.readFileSync(new URL('../../README.md', import.meta.url), 'utf8');
-	assert.match(types, /maxLength\?: number/);
-	assert.match(readme, /`maxLength`/);
+	assert.match(types, /maxLength\?: number/v);
+	assert.match(readme, /`maxLength`/v);
 });
