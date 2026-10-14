@@ -16,9 +16,9 @@ test('test_D1_suffix_added_as_is', async () => {
 
 test('test_D2_suffix_rejects_non_string', async () => {
 	const camelCase = await load();
-	for (const suffix of [5, null, ['a']]) {
-		assert.throws(() => camelCase('foo-bar', {suffix}), TypeError);
-	}
+	assert.throws(() => camelCase('foo-bar', {suffix: 5}), TypeError);
+	assert.throws(() => camelCase('foo-bar', {suffix: null}), TypeError);
+	assert.throws(() => camelCase('foo-bar', {suffix: ['a']}), TypeError);
 });
 
 test('test_D3_no_suffix_without_word', async () => {
@@ -44,6 +44,6 @@ test('test_D5_stays_without_suffix', async () => {
 test('test_D6_types_and_readme_name_suffix', () => {
 	const types = fs.readFileSync(new URL('../../index.d.ts', import.meta.url), 'utf8');
 	const readme = fs.readFileSync(new URL('../../README.md', import.meta.url), 'utf8');
-	assert.match(types, /suffix\?: string/);
-	assert.match(readme, /`suffix`/);
+	assert.match(types, /suffix\?: string/v);
+	assert.match(readme, /`suffix`/v);
 });
