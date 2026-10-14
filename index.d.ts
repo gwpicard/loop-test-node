@@ -106,6 +106,24 @@ export type Options = {
 	readonly maxLength?: number;
 
 	/**
+	Add this string to the end of the result, as is. The suffix is not added when the input has no word. A value that is not a string throws a `TypeError`. With `maxLength`, the cut comes first and the suffix is never cut.
+
+	@default undefined
+
+	@example
+	```
+	import camelCase from 'camelcase';
+
+	camelCase('foo-bar', {suffix: 'Id'});
+	//=> 'fooBarId'
+
+	camelCase('foo-bar', {pascalCase: true, suffix: 'Id'});
+	//=> 'FooBarId'
+	```
+	*/
+	readonly suffix?: string;
+
+	/**
 	The locale parameter indicates the locale to be used to convert to upper/lower case according to any locale-specific case mappings. If multiple locales are given in an array, the best available locale is used.
 
 	Default: The host environment’s current locale.

@@ -252,10 +252,20 @@ export default function camelCase(input, options) {
 		throw new TypeError('Expected the `maxLength` option to be a non-negative integer');
 	}
 
+	if (options?.suffix !== undefined && typeof options.suffix !== 'string') {
+		throw new TypeError('Expected the `suffix` option to be a string');
+	}
+
 	const result = convert(input, options);
 
+	// A result with no word, such as `''` or `__`, gets no suffix.
+	const hasWord = result.replace(LEADING_PREFIX, '').length > 0;
+
 	// Count code points, not code units, so astral characters are not split.
-	return maxLength === undefined ? result : [...result].slice(0, maxLength).join('');
+	const cut = maxLength === undefined ? result : [...result].slice(0, maxLength).join('');
+
+	// The suffix comes after the cut and is never cut.
+	return hasWord && options?.suffix ? cut + options.suffix : cut;
 }
 
 export function isCamelCase(string) {

@@ -170,6 +170,28 @@ camelCase('__foo-bar', {maxLength: 4});
 //=> '__fo'
 ```
 
+##### suffix
+
+Type: `string`\
+Default: `undefined`
+
+The `suffix` option adds this string to the end of the result, as is. The suffix is not added when the input has no word. A value that is not a string throws a `TypeError`.
+
+With `maxLength`, the cut comes first and the suffix comes after. The suffix is never cut. The result can be longer than `maxLength`.
+
+```js
+import camelCase from 'camelcase';
+
+camelCase('foo-bar', {suffix: 'Id'});
+//=> 'fooBarId'
+
+camelCase('foo-bar', {pascalCase: true, suffix: 'Id'});
+//=> 'FooBarId'
+
+camelCase('foo bar', {separator: '_', suffix: '!'});
+//=> 'foo_bar!'
+```
+
 ##### locale
 
 Type: `false | string | readonly string[]`\
