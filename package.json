@@ -41,5 +41,10 @@
 		"@typescript/native": "npm:typescript@^7.0.2",
 		"nz": "^0.1.0",
 		"xo": "^5.0.1"
+	},
+	"xo": {
+		"rules": {
+			"node-test/no-conditional-assertion": "off"
+		}
 	}
 }
