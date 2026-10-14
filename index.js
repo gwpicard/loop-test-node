@@ -150,7 +150,7 @@ const postProcess = (input, toUpperCase, {capitalizeAfterNumber}) => {
 	);
 };
 
-export default function camelCase(input, options) {
+function convert(input, options) {
 	if (!(typeof input === 'string' || Array.isArray(input))) {
 		throw new TypeError('Expected the input to be `string | string[]`');
 	}
@@ -243,6 +243,19 @@ export default function camelCase(input, options) {
 	}
 
 	return leadingPrefix + postProcess(input, toUpperCase, options);
+}
+
+export default function camelCase(input, options) {
+	const maxLength = options?.maxLength;
+
+	if (maxLength !== undefined && !(Number.isSafeInteger(maxLength) && maxLength >= 0)) {
+		throw new TypeError('Expected the `maxLength` option to be a non-negative integer');
+	}
+
+	const result = convert(input, options);
+
+	// Count code points, not code units, so astral characters are not split.
+	return maxLength === undefined ? result : [...result].slice(0, maxLength).join('');
 }
 
 export function isCamelCase(string) {

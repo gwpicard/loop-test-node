@@ -153,6 +153,23 @@ camelCase('foo bar', {separator: ''});
 //=> 'foobar'
 ```
 
+##### maxLength
+
+Type: `number`\
+Default: `undefined`
+
+The `maxLength` option cuts the result to at most this many code points. A leading `_` or `$` prefix counts. A value that is not a non-negative integer throws a `TypeError`.
+
+```js
+import camelCase from 'camelcase';
+
+camelCase('foo-bar-baz', {maxLength: 5});
+//=> 'fooBa'
+
+camelCase('__foo-bar', {maxLength: 4});
+//=> '__fo'
+```
+
 ##### locale
 
 Type: `false | string | readonly string[]`\
