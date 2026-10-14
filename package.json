@@ -1,0 +1,45 @@
+{
+	"name": "camelcase",
+	"version": "10.0.0",
+	"description": "Convert a dash/dot/underscore/space separated string to camelCase or PascalCase: `foo-bar` → `fooBar`",
+	"license": "MIT",
+	"repository": "sindresorhus/camelcase",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": "Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)",
+	"type": "module",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"test": "xo && node --test && nz"
+	},
+	"files": [
+		"index.js",
+		"index.d.ts"
+	],
+	"keywords": [
+		"camel-case",
+		"camel",
+		"case",
+		"dash",
+		"hyphen",
+		"dot",
+		"underscore",
+		"separator",
+		"string",
+		"text",
+		"convert",
+		"pascalcase",
+		"pascal-case"
+	],
+	"devDependencies": {
+		"@typescript/native": "npm:typescript@^7.0.2",
+		"nz": "^0.1.0",
+		"xo": "^5.0.1"
+	}
+}
