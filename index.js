@@ -246,6 +246,12 @@ function convert(input, options) {
 }
 
 export default function camelCase(input, options) {
+	const maxLength = options?.maxLength;
+
+	if (maxLength !== undefined && !(Number.isSafeInteger(maxLength) && maxLength >= 0)) {
+		throw new TypeError('Expected the `maxLength` option to be a non-negative integer');
+	}
+
 	if (options?.suffix !== undefined && typeof options.suffix !== 'string') {
 		throw new TypeError('Expected the `suffix` option to be a string');
 	}
@@ -254,7 +260,12 @@ export default function camelCase(input, options) {
 
 	// A result with no word, such as `''` or `__`, gets no suffix.
 	const hasWord = result.replace(LEADING_PREFIX, '').length > 0;
-	return hasWord && options?.suffix ? result + options.suffix : result;
+
+	// Count code points, not code units, so astral characters are not split.
+	const cut = maxLength === undefined ? result : [...result].slice(0, maxLength).join('');
+
+	// The suffix comes after the cut and is never cut.
+	return hasWord && options?.suffix ? cut + options.suffix : cut;
 }
 
 export function isCamelCase(string) {

@@ -91,7 +91,22 @@ export type Options = {
 	readonly separator?: string;
 
 	/**
-	Add this string to the end of the result, as is. The suffix is not added when the input has no word. A value that is not a string throws a `TypeError`.
+	Cut the result to at most this many code points. A leading `_` or `$` prefix counts. A value that is not a non-negative integer throws a `TypeError`.
+
+	@default undefined
+
+	@example
+	```
+	import camelCase from 'camelcase';
+
+	camelCase('foo-bar-baz', {maxLength: 5});
+	//=> 'fooBa'
+	```
+	*/
+	readonly maxLength?: number;
+
+	/**
+	Add this string to the end of the result, as is. The suffix is not added when the input has no word. A value that is not a string throws a `TypeError`. With `maxLength`, the cut comes first and the suffix is never cut.
 
 	@default undefined
 
