@@ -133,6 +133,26 @@ camelCase('foo_2_bar', {capitalizeAfterNumber: false});
 //=> 'foo2Bar'  ('bar' follows separator, not digit)
 ```
 
+##### separator
+
+Type: `string`\
+Default: `undefined`
+
+Join the words with this string, in lowercase, instead of making camel case. This option wins over `pascalCase`, `preserveConsecutiveUppercase` and `capitalizeAfterNumber`. A leading `_` or `$` prefix stays. A value that is not a string throws a `TypeError`.
+
+```js
+import camelCase from 'camelcase';
+
+camelCase('foo bar', {separator: '_'});
+//=> 'foo_bar'
+
+camelCase('fooBar baz', {separator: '-'});
+//=> 'foo-bar-baz'
+
+camelCase('foo bar', {separator: ''});
+//=> 'foobar'
+```
+
 ##### locale
 
 Type: `false | string | readonly string[]`\
