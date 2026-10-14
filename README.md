@@ -192,6 +192,28 @@ camelCase('foo bar', {separator: '_', suffix: '!'});
 //=> 'foo_bar!'
 ```
 
+##### prefix
+
+Type: `string`\
+Default: `undefined`
+
+The `prefix` option adds this string as a word at the start of the input. The prefix is converted like the input, so `pascalCase`, `separator` and `locale` act on it. It comes after a leading `_` or `$`. The prefix is not added when the input has no word. A value that is not a string throws a `TypeError`.
+
+With `maxLength`, the prefix counts in the cut. The suffix comes after the cut.
+
+```js
+import camelCase from 'camelcase';
+
+camelCase('foo bar', {prefix: 'my'});
+//=> 'myFooBar'
+
+camelCase('foo bar', {prefix: 'my', pascalCase: true});
+//=> 'MyFooBar'
+
+camelCase('_foo-bar', {prefix: 'my'});
+//=> '_myFooBar'
+```
+
 ##### locale
 
 Type: `false | string | readonly string[]`\
