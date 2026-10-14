@@ -6,6 +6,7 @@ const DIGIT = /\p{Decimal_Number}/v;
 const LEADING_CAPITAL = /^\p{Uppercase_Letter}(?!\p{Uppercase_Letter})/v;
 const SEPARATORS = /[ \-._]+/v;
 const LEADING_PREFIX = /^[$_]*/v;
+const ONLY_SEPARATORS = /^[ \-._]*$/v;
 
 // The |$ alternative allows matching at end-of-string, capturing empty string
 // This enables NUMBERS_AND_IDENTIFIER to match digits at string end (e.g., "test123")
@@ -150,6 +151,9 @@ const postProcess = (input, toUpperCase, {capitalizeAfterNumber}) => {
 	);
 };
 
+// The prefix is another word at the start. An input with no word gets no prefix.
+const addPrefixWord = (input, prefix) => prefix && !ONLY_SEPARATORS.test(input) ? prefix + '-' + input : input;
+
 function convert(input, options) {
 	if (!(typeof input === 'string' || Array.isArray(input))) {
 		throw new TypeError('Expected the input to be `string | string[]`');
@@ -186,6 +190,8 @@ function convert(input, options) {
 	if (input.length === 0) {
 		return leadingPrefix;
 	}
+
+	input = addPrefixWord(input, options.prefix);
 
 	const toLowerCase = options.locale === false
 		? string => string.toLowerCase()
@@ -254,6 +260,10 @@ export default function camelCase(input, options) {
 
 	if (options?.suffix !== undefined && typeof options.suffix !== 'string') {
 		throw new TypeError('Expected the `suffix` option to be a string');
+	}
+
+	if (options?.prefix !== undefined && typeof options.prefix !== 'string') {
+		throw new TypeError('Expected the `prefix` option to be a string');
 	}
 
 	const result = convert(input, options);

@@ -49,6 +49,8 @@ expectError(camelCase({}));
 expectError(camelCase(['foo', 1]));
 expectError(camelCase('foo-bar', {pascalCase: 'yes'}));
 expectError(camelCase('foo-bar', {unknownOption: true}));
+expectTypeOf(camelCase('foo-bar', {prefix: 'my'})).toBe<string>();
+expectError(camelCase('foo-bar', {prefix: 5}));
 expectError(camelCase('foo-bar', {locale: 42}));
 
 expectTypeOf(isCamelCase('fooBar')).toBe<boolean>();
