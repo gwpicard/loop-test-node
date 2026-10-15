@@ -5,6 +5,20 @@ import {readFile} from 'node:fs/promises';
 
 const readText = async path => readFile(new URL(path, import.meta.url), 'utf8');
 
+const HEADING = '### isPascalCase(string)';
+
+// The section starts after the whole heading line, so the end pattern cannot match the heading itself.
+const sectionAfter = (text, heading) => {
+	const start = text.indexOf(heading);
+	if (start === -1) {
+		return undefined;
+	}
+
+	const rest = text.slice(start + heading.length);
+	const next = rest.search(/^#{2,} /mv);
+	return next === -1 ? rest : rest.slice(0, next);
+};
+
 const loadModule = async () => import('../../index.js');
 
 test('test_D1_readme_has_is_pascal_case_heading_in_place', async () => {
@@ -21,11 +35,8 @@ test('test_D1_readme_has_is_pascal_case_heading_in_place', async () => {
 
 test('test_D2_readme_section_has_example_and_rules', async () => {
 	const readme = await readText('../../README.md');
-	const start = readme.indexOf('### isPascalCase(string)');
-	assert.notEqual(start, -1, 'README must have the isPascalCase heading');
-	const rest = readme.slice(start + 1);
-	const next = rest.search(/^#{2,} /mv);
-	const section = next === -1 ? rest : rest.slice(0, next);
+	const section = sectionAfter(readme, HEADING);
+	assert.notEqual(section, undefined, 'README must have the isPascalCase heading');
 
 	assert.match(section, /```js\n[\s\S]*```/v, 'section needs a js example');
 	assert.match(section, /isPascalCase\('FooBar'\);?\s*\/\/[^\n]*true/v);
@@ -33,6 +44,15 @@ test('test_D2_readme_section_has_example_and_rules', async () => {
 	assert.match(section, /no word/iv);
 	assert.match(section, /false/v);
 	assert.match(section, /TypeError/v);
+});
+
+test('test_D2_section_slice_skips_own_heading', () => {
+	const text = `${HEADING}\n\nBody text.\n\n\`\`\`js\nexample();\n\`\`\`\n\n## Related\n\nOther.\n`;
+	const section = sectionAfter(text, HEADING);
+	assert.ok(section.includes('Body text.'), 'the section must hold the text after its heading');
+	assert.ok(section.includes('example();'), 'the section must hold the example');
+	assert.ok(!section.includes('Other.'), 'the section must end at the next heading');
+	assert.equal(sectionAfter('## Related\n', HEADING), undefined);
 });
 
 test('test_D3_type_test_covers_is_pascal_case', async () => {
