@@ -271,7 +271,7 @@ isCamelCase('foo-bar');
 
 Check if a string is already in kebab-case form. It returns `true` or `false`.
 
-The rules: lowercase letters and digits join with single hyphens. The string starts with a letter. A leading, trailing or double hyphen gives `false`. An empty string gives `false`. A non-string input throws a `TypeError`.
+The rules: lowercase letters and digits join with single hyphens. A leading, trailing or double hyphen gives `false`. An empty string gives `false`. A non-string input throws a `TypeError`.
 
 ```js
 import {isKebabCase} from 'camelcase';
