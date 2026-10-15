@@ -259,3 +259,21 @@ isPascalCase('fooBar');
 ```
 */
 export function isPascalCase(string: string): boolean;
+
+/**
+Check if a string is already in kebab-case form. Lowercase letters and digits join with single hyphens.
+
+It throws a `TypeError` for a non-string input.
+
+@example
+```
+import {isKebabCase} from 'camelcase';
+
+isKebabCase('foo-bar');
+//=> true
+
+isKebabCase('fooBar');
+//=> false
+```
+*/
+export function isKebabCase(string: string): boolean;
