@@ -267,6 +267,22 @@ isCamelCase('foo-bar');
 //=> false
 ```
 
+### isPascalCase(string)
+
+Check if a string is already in PascalCase form. It returns `true` or `false`.
+
+A string with no word, such as `''`, `'_'` or `'$'`, gives `false`. A non-string input throws a `TypeError`. The check uses the default `camelCase` behavior with `pascalCase: true` and takes no options.
+
+```js
+import {isPascalCase} from 'camelcase';
+
+isPascalCase('FooBar');
+//=> true
+
+isPascalCase('fooBar');
+//=> false
+```
+
 ## Related
 
 - [decamelize](https://github.com/sindresorhus/decamelize) - The inverse of this module
