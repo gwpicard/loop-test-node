@@ -295,3 +295,11 @@ export function isPascalCase(string) {
 	// A string with only `_` and `$` holds no word.
 	return string.replace(LEADING_PREFIX, '').length > 0 && camelCase(string, {pascalCase: true}) === string;
 }
+
+export function isKebabCase(string) {
+	if (typeof string !== 'string') {
+		throw new TypeError('Expected the input to be `string`');
+	}
+
+	return /^[\da-z]+(?:-[\da-z]+)*$/v.test(string);
+}
