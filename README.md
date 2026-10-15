@@ -267,6 +267,22 @@ isCamelCase('foo-bar');
 //=> false
 ```
 
+### isKebabCase(string)
+
+Check if a string is already in kebab-case form. It returns `true` or `false`.
+
+The rules: lowercase letters and digits join with single hyphens. The string starts with a letter. A leading, trailing or double hyphen gives `false`. An empty string gives `false`. A non-string input throws a `TypeError`.
+
+```js
+import {isKebabCase} from 'camelcase';
+
+isKebabCase('foo-bar');
+//=> true
+
+isKebabCase('fooBar');
+//=> false
+```
+
 ## Related
 
 - [decamelize](https://github.com/sindresorhus/decamelize) - The inverse of this module
