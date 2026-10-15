@@ -241,3 +241,21 @@ isCamelCase('foo-bar');
 ```
 */
 export function isCamelCase(string: string): boolean;
+
+/**
+Check if a string is already in PascalCase form. A string with no word, such as `''`, `'_'` or `'$'`, gives `false`.
+
+It throws a `TypeError` for a non-string input.
+
+@example
+```
+import {isPascalCase} from 'camelcase';
+
+isPascalCase('FooBar');
+//=> true
+
+isPascalCase('fooBar');
+//=> false
+```
+*/
+export function isPascalCase(string: string): boolean;
