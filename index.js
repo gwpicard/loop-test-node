@@ -286,3 +286,12 @@ export function isCamelCase(string) {
 	// A string with only `_` and `$` holds no word.
 	return string.replace(LEADING_PREFIX, '').length > 0 && camelCase(string) === string;
 }
+
+export function isPascalCase(string) {
+	if (typeof string !== 'string') {
+		throw new TypeError('Expected the input to be `string`');
+	}
+
+	// A string with only `_` and `$` holds no word.
+	return string.replace(LEADING_PREFIX, '').length > 0 && camelCase(string, {pascalCase: true}) === string;
+}
