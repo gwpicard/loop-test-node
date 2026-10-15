@@ -154,18 +154,12 @@ const postProcess = (input, toUpperCase, {capitalizeAfterNumber}) => {
 // The prefix is another word at the start. An input with no word gets no prefix.
 const addPrefixWord = (input, prefix) => prefix && !ONLY_SEPARATORS.test(input) ? prefix + '-' + input : input;
 
-const assertStringElements = input => {
-	if (Array.isArray(input) && input.some(element => typeof element !== 'string')) {
-		throw new TypeError('Expected the input to be `string | string[]`');
-	}
-};
+const isValidInput = input => typeof input === 'string' || (Array.isArray(input) && input.every(element => typeof element === 'string'));
 
 function convert(input, options) {
-	if (!(typeof input === 'string' || Array.isArray(input))) {
+	if (!isValidInput(input)) {
 		throw new TypeError('Expected the input to be `string | string[]`');
 	}
-
-	assertStringElements(input);
 
 	options = {
 		pascalCase: false,
